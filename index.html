@@ -116,7 +116,7 @@ code,pre{font-family:var(--f-code)}
 .chapters{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}
 .chapters li{border-top:1px solid var(--line)}
 .ch{display:grid;grid-template-columns:72px 1fr;gap:2px 14px;padding:12px 0;text-decoration:none}
-.ch .t{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--accent);grid-row:span 2;padding-top:2px}
+.ch .t{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--accent);padding-top:2px}
 .ch .e{font-weight:600;font-size:16px;line-height:1.3}
 .ch .n{color:var(--muted);font-size:15px;line-height:1.3}
 a.ch:hover .e{text-decoration:underline;text-underline-offset:3px}
@@ -287,7 +287,7 @@ tr.hl td:nth-child(2){color:var(--fg);font-weight:400}
 .quote em{font-style:normal;color:var(--accent)}
 .team{list-style:none;margin:0;padding:0;display:grid;border-bottom:1px solid var(--line)}
 .team li{display:grid;grid-template-columns:40px 1fr;gap:2px 10px;padding:12px 0;border-top:1px solid var(--line)}
-.team .i{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--accent);grid-row:span 2;padding-top:3px}
+.team .i{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--accent);padding-top:3px}
 .team b{font-size:18px;font-weight:500;letter-spacing:-.01em;line-height:1.25}
 .team span{font-size:14px;color:var(--muted)}
 @media (min-width:860px){ .team{grid-template-columns:1fr 1fr;column-gap:40px} }
@@ -356,7 +356,7 @@ tr.hl td:nth-child(2){color:var(--fg);font-weight:400}
       <span class="vc-foot"><span class="vc-title">A Divisão dos 8 Pães, do livro ao algoritmo</span><span id="video-status" class="lab">Vídeo em breve no YouTube</span></span>
     </a>
     <div>
-      <p class="lab" style="margin-bottom:10px">Capítulos do vídeo</p>
+      <p class="lab" style="margin-bottom:10px">Capítulos do vídeo · apresentação de David Israel</p>
       <ol id="chapters" class="chapters"></ol>
     </div>
   </div>
@@ -543,7 +543,8 @@ tr.hl td:nth-child(2){color:var(--fg);font-weight:400}
 // =====================================================================
 const VIDEO_URL = "";
 
-const CHAPTERS=[[0,'0:00','Apresentação','Mateus Rausch Voz de Alcântara'],[30,'0:30','Contextualização','Ítalo Távio de Oliveira'],[90,'1:30','Algoritmo no VisuAlg','Davi Alves Lima'],[150,'2:30','Fluxograma e decisão','Lucas Gabriel Faria'],[210,'3:30','Demonstração / teste de mesa','Cauã Araújo'],[270,'4:30','Conclusão e aprendizagens','David Israel']];
+const CHAPTERS=[[0,'0:00','Apresentação'],[30,'0:30','Contextualização'],[90,'1:30','Algoritmo no VisuAlg'],[150,'2:30','Fluxograma e decisão'],[210,'3:30','Demonstração e teste de mesa'],[270,'4:30','Conclusão e aprendizagens']];
+const TEAM=['Mateus Rausch Voz de Alcântara','Ítalo Távio de Oliveira','Davi Alves Lima','Lucas Gabriel Faria','Cauã Araújo','David Israel'];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const withTime=(u,s)=>{try{const x=new URL(u);x.searchParams.set('t',s+'s');return x.toString();}catch(e){return u;}};
 
@@ -554,9 +555,8 @@ const withTime=(u,s)=>{try{const x=new URL(u);x.searchParams.set('t',s+'s');retu
   if(VIDEO_URL&&vid){const w=document.createElement('div');w.className='video-wrap';w.innerHTML=`<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/${vid}?rel=0" title="Vídeo explicativo: A Divisão dos 8 Pães" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><a class="video-link" href="${esc(VIDEO_URL)}" target="_blank" rel="noopener">Abrir no YouTube ↗</a>`;card.replaceWith(w);}
   else if(VIDEO_URL){card.href=VIDEO_URL;st.textContent='Assistir no YouTube ↗';}
   else{card.removeAttribute('href');card.setAttribute('aria-disabled','true');st.textContent='O vídeo será publicado aqui em breve';}
-  ol.innerHTML=CHAPTERS.map(([s,t,e,n])=>{const inner=`<span class="t">${t}</span><span class="e">${e}</span><span class="n">${n}</span>`;return `<li>${VIDEO_URL?`<a class="ch" href="${esc(withTime(VIDEO_URL,s))}" target="_blank" rel="noopener">${inner}</a>`:`<span class="ch">${inner}</span>`}</li>`;}).join('');
-  const roles=['Apresentação','Contextualização','Algoritmo · pseudocódigo','Algoritmo · fluxograma','Demonstração · teste de mesa','Conclusão'];
-  document.getElementById('team').innerHTML=CHAPTERS.map((c,i)=>`<li><span class="i">0${i+1}</span><b>${c[3]}</b><span>${roles[i]} no vídeo</span></li>`).join('');
+  ol.innerHTML=CHAPTERS.map(([s,t,e])=>{const inner=`<span class="t">${t}</span><span class="e">${e}</span>`;return `<li>${VIDEO_URL?`<a class="ch" href="${esc(withTime(VIDEO_URL,s))}" target="_blank" rel="noopener">${inner}</a>`:`<span class="ch">${inner}</span>`}</li>`;}).join('');
+  document.getElementById('team').innerHTML=TEAM.map((n,i)=>`<li><span class="i">0${i+1}</span><b>${n}</b></li>`).join('');
 })();
 
 // faixas de pedaços
